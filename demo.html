@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<meta name="apple-touch-fullscreen" content="YES" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<style>
+	body{
+		margin: 0;
+		padding: 0;
+		background: #333;
+		overflow: hidden;
+	}
+	li,ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		overflow: hidden;
+	}
+	ul{
+		width: 99999px;
+	}
+	/* 使得图片居中 webkit-box */
+	li{
+		float: left;
+		position: relative;
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;
+	}
+	li img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+	/* 画布布满全局 */
+	#canvas{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	li span{
+		color: #fff;
+		font-size: 14px;
+		position: absolute;
+		bottom: 0;
+	}
+</style>
+</head>
+<body>
+	<div id="canvas"></div>
+	<script type="text/javascript">
+		var list = [{
+			desc: "《自画像》文森特·威廉·梵高（VincentWillemvanGogh，1853年－1890年），荷兰后印象派代表性画家。",
+			height: 950,
+			width: 800,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273570.jpg/400"
+		},
+		{
+			desc: "《十五朵向日葵》",
+			height: 1187,
+			width: 900,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273561.jpg/400"
+		},
+		{
+			desc: "《星夜》梵高1853年3月30日生于津德尔特，早期因为表达内心的悲痛，曾割断了自己的耳朵。",
+			height: 766,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273564.jpg/640"
+		},
+		{
+			desc: "《莱斯附近的海景》1890年7月29日在法国瓦兹河畔因困扰其多年的精神病发作自杀身亡。",
+			height: 754,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273540.jpg/640"
+		},
+		{
+			desc: "《阿尔勒城朗格卢瓦桥与洗衣妇》梵高早年经商，后热衷于宗教，1880年以后开始学习绘画。",
+			height: 814,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273542.jpg/640"
+		},
+		{
+			desc: "《阿里斯康墓园，亚耳街道》梵高曾在巴黎结识贝尔纳、西涅克和高更等画家。",
+			height: 1171,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273550.jpg/400"
+		},
+		{
+			desc: "《奥维尔的瓦兹河岸》",
+			height: 785,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273553.jpg/640"
+		},
+		{
+			desc: "《罗纳河上的星夜》",
+			height: 612,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273558.jpg/640"
+		},
+		{
+			desc: "《奥维尔教堂》",
+			height: 1047,
+			width: 832,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273554.jpg/400"
+		},
+		{
+			desc: "《粉玫瑰》",
+			height: 776,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273555.jpg/640"
+		},
+		{
+			desc: "《花园花开》",
+			height: 1191,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273556.jpg/400"
+		},
+		{
+			desc: "《两棵柏树》",
+			height: 1200,
+			width: 934,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273557.jpg/400"
+		},
+		{
+			desc: "《马约里卡瓷瓶中的夹竹桃》",
+			height: 798,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273559.jpg/640"
+		},
+		{
+			desc: "《麦田》",
+			height: 685,
+			width: 850,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273560.jpg/640"
+		},
+		{
+			desc: "《文森特·梵高在阿尔勒的家（黄楼）》",
+			height: 782,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273562.jpg/640"
+		},
+		{
+			desc: "《夕阳下修剪过的柳树》",
+			height: 857,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273563.jpg/640"
+		},
+		{
+			desc: "《杏花盛开》",
+			height: 664,
+			width: 820,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273565.jpg/640"
+		},
+		{
+			desc: "《夜间咖啡馆—室内》",
+			height: 775,
+			width: 980,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273566.jpg/640"
+		},
+		{
+			desc: "《夜间咖啡馆—室外》",
+			height: 1200,
+			width: 890,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273567.jpg/400"
+		},
+		{
+			desc: "《运河边的洗衣妇》",
+			height: 1044,
+			width: 850,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273568.jpg/400"
+		},
+		{
+			desc: "《在阿尔勒的舞厅》",
+			height: 722,
+			width: 900,
+			img: "http://p.qpic.cn/infonew/0/cul_zt_pics_9273569.jpg/640"
+		}];
+
+
+		function slider(opts){
+			this.wrap = opts.dom;
+			this.list = opts.list;
+			this.init();
+			this.renderDOM();
+			this.bindDOM();
+		}
+
+		slider.prototype.init = function() {
+			this.radio = window.innerHeight/window.innerWidth;
+			this.scaleW = window.innerWidth;
+			this.idx = 0;
+			this.X = -0 * this.scaleW;
+		};
+
+
+		slider.prototype.renderDOM = function(){
+			var wrap = this.wrap;
+			var html = '';
+
+			this.outer = document.createElement('ul');
+			for(var i =0; i < this.list.length; i++){
+				var temp = this.list[i];
+				html += '<li style="width:'+ window.innerWidth +'px">';
+				if(temp['height']/temp['width'] > this.radio){
+					html += '<img height="'+ window.innerHeight +'" src="'+ temp['img'] +'">';
+				}else{
+					html += '<img width="'+ window.innerWidth +'" src="'+ temp['img'] +'">';
+				}
+				html += '</li>';
+			}
+
+			this.outer.innerHTML = html;
+			wrap.style.cssText = 'height:' + window.innerHeight + 'px;'
+			wrap.appendChild(this.outer);
+		};
+
+		slider.prototype.bindDOM = function(){
+			var self = this;
+			var scaleW = self.scaleW;
+
+			var startHandler = function(evt){
+				self.startX = evt.touches[0].pageX;
+				self.startY = evt.touches[0].pageY;
+			};
+			var moveHandler = function(evt){
+				self.offsetX = evt.touches[0].pageX - self.startX;
+				self.offsetY = evt.touches[0].pageY - self.startY;
+
+				var offsetX = self.offsetX - self.idx*scaleW;
+				// self.outer.style.cssText = '-webkit-transform:translateX('+offsetX+'px);'
+				self.outer.style.cssText = 'position:absolute; left:'+offsetX+'px;'
+			};
+			var endHandler = function(evt){
+
+				alert(self.outer.style.cssText);
+				
+				var lastIdx = self.list.length - 1;
+				if(self.offsetX >= scaleW/3){
+					self.idx = self.idx - 1 < 0 ? 0 : self.idx - 1;
+				}else if(self.offsetX < 0 && self.offsetX < -scaleW/3){
+					self.idx = self.idx + 1 > lastIdx ? lastIdx : self.idx + 1;
+				}
+
+				var x = -self.idx * scaleW;
+
+				// var cssText = '-webkit-transition:-webkit-transform 0.2s ease-out;-webkit-transform:translateX('+x+'px);';
+				var cssText = 'position:absolute; left:'+x+'px;'
+
+				self.outer.style.cssText = cssText;
+
+				self.startX = null;
+				self.startY = null;
+			};
+
+			this.wrap.addEventListener('touchstart', startHandler);
+			this.wrap.addEventListener('touchmove', moveHandler);
+			this.wrap.addEventListener('touchend', endHandler);
+		};
+
+
+		new slider({
+			dom : document.getElementById('canvas'),
+			list : list
+		});
+	</script>
+</body>
